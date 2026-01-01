@@ -20,7 +20,7 @@
             color: #2c3e50;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
-            direction: rtl;
+            direction: inherit;
         }
 
         .container {
@@ -48,6 +48,36 @@
         header p {
             font-size: 1.2em;
             opacity: 0.9;
+        }
+
+        .header-top {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-text {
+            flex: 1 1 auto;
+        }
+
+        #languageToggle {
+            background: #f0f4ff;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #languageToggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
         }
 
         .content {
@@ -229,11 +259,16 @@
 <body>
     <div class="container">
         <header>
-            <h1>🛡️ حماية Fork Bomb لسيرفرات Alma Linux</h1>
-            <p>دليل شامل للحماية من خلال WHM/cPanel</p>
+            <div class="header-top">
+                <div class="header-text">
+                    <h1 id="heroTitle">🛡️ حماية Fork Bomb لسيرفرات Alma Linux</h1>
+                    <p id="heroSubtitle">دليل شامل للحماية من خلال WHM/cPanel</p>
+                </div>
+                <button id="languageToggle" type="button" aria-label="التبديل إلى اللغة الإنجليزية" aria-pressed="false">العربية</button>
+            </div>
         </header>
 
-        <div class="content">
+        <div class="content" id="articleContent">
             <!-- مقدمة عن Fork Bomb -->
             <h2>⚡ ما هي Fork Bomb؟</h2>
             <p><strong>Fork Bomb</strong> هي نوع من الهجمات البسيطة لكن الخطيرة جداً على أنظمة التشغيل، خاصة السيرفرات المشتركة. الفكرة ببساطة أن البرنامج ينسخ نفسه باستمرار حتى يستنزف كل موارد السيرفر تماماً.</p>
@@ -859,10 +894,1295 @@ CPUQuota=50%</code></pre>
             </footer>
         </div>
     </div>
+    <template id="template-ar">
+        <div class="content-wrapper">
+            <!-- مقدمة عن Fork Bomb -->
+            <h2>⚡ ما هي Fork Bomb؟</h2>
+            <p><strong>Fork Bomb</strong> هي نوع من الهجمات البسيطة لكن الخطيرة جداً على أنظمة التشغيل، خاصة السيرفرات المشتركة. الفكرة ببساطة أن البرنامج ينسخ نفسه باستمرار حتى يستنزف كل موارد السيرفر تماماً.</p>
+
+            <div class="alert alert-danger">
+                <strong>⚠️ تحذير مهم:</strong> Fork Bomb يمكن أن توقف السيرفر بالكامل في ثوانٍ معدودة، مما يؤثر على جميع المواقع والخدمات المستضافة عليه!
+            </div>
+
+            <h3>مثال كلاسيكي في Linux</h3>
+            <pre><code>:(){ :|:&amp; };:</code></pre>
+
+            <p><strong>كيف يعمل؟</strong></p>
+            <ul>
+                <li>يُعرّف دالة اسمها <code>:</code></li>
+                <li>الدالة تنادي على نفسها مرتين في نفس الوقت</li>
+                <li>كل عملية تولد عمليتين جديدتين</li>
+                <li>النتيجة: انفجار أسي في عدد العمليات (2، 4، 8، 16، 32... إلخ)</li>
+            </ul>
+
+            <!-- خطورة Fork Bomb -->
+            <h2>🔥 لماذا Fork Bomb خطيرة على سيرفرات الاستضافة؟</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>نوع التأثير</th>
+                        <th>الوصف</th>
+                        <th>النتيجة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>استهلاك الذاكرة (RAM)</td>
+                        <td>كل عملية جديدة تأخذ مساحة من الذاكرة</td>
+                        <td>نفاد الذاكرة بالكامل</td>
+                    </tr>
+                    <tr>
+                        <td>استهلاك المعالج (CPU)</td>
+                        <td>آلاف العمليات تتنافس على وقت المعالج</td>
+                        <td>بطء شديد أو توقف كامل</td>
+                    </tr>
+                    <tr>
+                        <td>توقف الخدمات</td>
+                        <td>لا توجد موارد متبقية للبرامج العادية</td>
+                        <td>تعطل المواقع وقواعد البيانات</td>
+                    </tr>
+                    <tr>
+                        <td>صعوبة الإيقاف</td>
+                        <td>العمليات الجديدة تتولد أسرع من محاولات القتل</td>
+                        <td>قد تحتاج إعادة تشغيل قسري</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-warning">
+                <strong>📊 إحصائية مهمة:</strong> Fork Bomb يمكن أن تولد أكثر من مليون عملية في أقل من 10 ثوانٍ على سيرفر غير محمي!
+            </div>
+
+            <!-- WHM Section -->
+            <div class="whm-section">
+                <h2>🎯 لماذا تفعيل الحماية من خلال WHM مهم جداً؟</h2>
+
+                <div class="benefit-box">
+                    <h3>✅ الفوائد الرئيسية لتفعيل الحماية عبر WHM</h3>
+
+                    <h4>1. حماية شاملة لجميع الحسابات</h4>
+                    <p>عند تفعيل الحماية من WHM، يتم تطبيقها تلقائياً على:</p>
+                    <ul>
+                        <li><strong>جميع حسابات cPanel:</strong> كل عميل على السيرفر محمي تلقائياً</li>
+                        <li><strong>الحسابات الجديدة:</strong> أي حساب جديد يتم إنشاؤه يحصل على الحماية مباشرة</li>
+                        <li><strong>مستخدمي SSH:</strong> حتى من يصل للسيرفر عبر SSH محمي</li>
+                        <li><strong>Cron Jobs:</strong> المهام المجدولة أيضاً خاضعة للقيود</li>
+                    </ul>
+
+                    <h4>2. سهولة الإدارة المركزية</h4>
+                    <p>بدلاً من تعديل ملفات النظام يدوياً لكل حساب:</p>
+                    <ul>
+                        <li>واجهة رسومية سهلة الاستخدام</li>
+                        <li>تطبيق التغييرات بنقرة واحدة</li>
+                        <li>إمكانية التراجع عن التغييرات بسهولة</li>
+                        <li>مراقبة وتعديل القيود من مكان واحد</li>
+                    </ul>
+
+                    <h4>3. التوافق مع Alma Linux</h4>
+                    <p>Alma Linux (بديل CentOS) يعمل بشكل مثالي مع WHM:</p>
+                    <ul>
+                        <li>استقرار عالي ودعم طويل الأمد</li>
+                        <li>توافق كامل مع CloudLinux LVE</li>
+                        <li>دعم أفضل لـ cgroups و systemd</li>
+                        <li>تحديثات أمنية منتظمة</li>
+                    </ul>
+
+                    <h4>4. منع انهيار السيرفر الكامل</h4>
+                    <p>في السيرفرات المشتركة، حساب واحد يمكن أن يوقف الجميع:</p>
+                    <ul>
+                        <li><strong>بدون حماية:</strong> Fork Bomb من حساب واحد = انهيار السيرفر بالكامل</li>
+                        <li><strong>مع الحماية:</strong> الحساب المهاجم فقط يتوقف، باقي الحسابات تعمل بشكل طبيعي</li>
+                        <li>الحفاظ على SLA (اتفاقية مستوى الخدمة)</li>
+                        <li>تجنب شكاوى العملاء وخسارة الإيرادات</li>
+                    </ul>
+
+                    <h4>5. الحماية من الهجمات المتعمدة</h4>
+                    <ul>
+                        <li>منع استخدام Fork Bomb كأداة للهجوم (DoS)</li>
+                        <li>الحماية من السكريبتات الخبيثة</li>
+                        <li>تقليل مخاطر الاختراق</li>
+                        <li>إمكانية تتبع المحاولات المشبوهة</li>
+                    </ul>
+
+                    <h4>6. التكامل مع CloudLinux (اختياري)</h4>
+                    <p>إذا كنت تستخدم CloudLinux مع WHM:</p>
+                    <ul>
+                        <li>حماية أقوى عبر LVE (Lightweight Virtual Environment)</li>
+                        <li>عزل كامل بين الحسابات</li>
+                        <li>تحديد موارد دقيق لكل حساب</li>
+                        <li>مراقبة وإحصائيات تفصيلية</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>💡 ملاحظة مهمة:</strong> تفعيل الحماية من WHM لا يؤثر على الأداء العادي للسيرفر، بل يحسّن الاستقرار والأمان بشكل كبير!
+                </div>
+            </div>
+
+            <!-- خطوات التفعيل -->
+            <h2>⚙️ خطوات تفعيل حماية Fork Bomb في WHM لـ Alma Linux</h2>
+
+            <div class="step-box">
+                <h3>الطريقة الأولى: استخدام Shell Limits في WHM</h3>
+
+                <h4>الخطوة 1: الدخول إلى WHM</h4>
+                <pre><code>https://your-server-ip:2087
+أو
+https://your-domain.com:2087</code></pre>
+                <p>سجل دخول بحساب root</p>
+
+                <h4>الخطوة 2: البحث عن Shell Limits</h4>
+                <ul>
+                    <li>في شريط البحث أعلى WHM، اكتب: <code>Shell Limits</code></li>
+                    <li>أو اذهب إلى: <strong>Home » Security Center » Manage Shell Fork Bomb Protection</strong></li>
+                </ul>
+
+                <h4>الخطوة 3: تفعيل الحماية</h4>
+                <p>ستجد واجهة بسيطة تحتوي على:</p>
+                <ul>
+                    <li><strong>Enable Shell Fork Bomb Protection:</strong> فعّل هذا الخيار</li>
+                    <li><strong>Maximum Number of Processes:</strong> حدد العدد الأقصى للعمليات</li>
+                </ul>
+
+                <div class="alert alert-success">
+                    <strong>✅ القيم الموصى بها:</strong>
+                    <ul>
+                        <li><strong>للسيرفرات الصغيرة (حتى 50 موقع):</strong> 100-200 عملية لكل مستخدم</li>
+                        <li><strong>للسيرفرات المتوسطة (50-200 موقع):</strong> 200-400 عملية</li>
+                        <li><strong>للسيرفرات الكبيرة (+200 موقع):</strong> 400-800 عملية</li>
+                    </ul>
+                </div>
+
+                <h4>الخطوة 4: حفظ التغييرات</h4>
+                <p>اضغط على <strong>Save</strong> أو <strong>Update</strong></p>
+
+                <h4>الخطوة 5: التحقق من التفعيل</h4>
+                <p>سجل دخول إلى أي حساب cPanel عبر SSH واختبر:</p>
+                <pre><code>ssh username@your-server.com
+ulimit -u</code></pre>
+                <p>يجب أن ترى الحد الذي حددته في WHM</p>
+            </div>
+
+            <div class="step-box">
+                <h3>الطريقة الثانية: التعديل اليدوي (للمتقدمين)</h3>
+
+                <h4>1. تعديل limits.conf</h4>
+                <pre><code>nano /etc/security/limits.conf</code></pre>
+
+                <p>أضف الأسطر التالية:</p>
+                <pre><code># حماية عامة لجميع المستخدمين
+* hard nproc 1000
+* soft nproc 800
+
+# حماية خاصة لمستخدمي cPanel
+@users hard nproc 500
+@users soft nproc 400
+
+# السماح لـ root بعمليات أكثر
+root hard nproc 5000
+root soft nproc 4000</code></pre>
+
+                <h4>2. تعديل إعدادات PAM</h4>
+                <pre><code>nano /etc/pam.d/sshd</code></pre>
+
+                <p>تأكد من وجود السطر:</p>
+                <pre><code>session required pam_limits.so</code></pre>
+
+                <h4>3. إعدادات Systemd للخدمات</h4>
+                <pre><code>mkdir -p /etc/systemd/system/httpd.service.d/
+nano /etc/systemd/system/httpd.service.d/limits.conf</code></pre>
+
+                <p>أضف:</p>
+                <pre><code>[Service]
+LimitNPROC=2000</code></pre>
+
+                <p>أعد تحميل systemd:</p>
+                <pre><code>systemctl daemon-reload
+systemctl restart httpd</code></pre>
+            </div>
+
+            <!-- التكامل مع CloudLinux -->
+            <h2>☁️ التكامل مع CloudLinux (موصى به جداً)</h2>
+
+            <div class="alert alert-info">
+                <p>إذا كنت تستخدم CloudLinux OS، فأنت تحصل على حماية أقوى بكثير من خلال نظام LVE.</p>
+            </div>
+
+            <h3>تفعيل حماية Fork Bomb في CloudLinux</h3>
+
+            <h4>عبر WHM</h4>
+            <ol>
+                <li>اذهب إلى: <strong>WHM » LVE Manager</strong></li>
+                <li>انقر على <strong>Options</strong></li>
+                <li>حدد <strong>NPROC</strong> (Number of Processes)</li>
+                <li>ضع القيمة المناسبة (مثلاً: 100)</li>
+                <li>احفظ التغييرات</li>
+            </ol>
+
+            <h4>عبر سطر الأوامر</h4>
+            <pre><code># تحديد عدد العمليات الافتراضي
+lvectl set default --nproc=100
+
+# تطبيق على جميع المستخدمين
+lvectl apply all
+
+# التحقق من الإعدادات
+lvectl list</code></pre>
+
+            <div class="benefit-box">
+                <h4>مميزات CloudLinux LVE</h4>
+                <ul>
+                    <li>عزل كامل بين المستخدمين (لا يستطيع مستخدم التأثير على آخر)</li>
+                    <li>تحديد دقيق لـ CPU، RAM، IO، والعمليات</li>
+                    <li>مراقبة لحظية للاستهلاك</li>
+                    <li>تقارير تفصيلية عن استخدام الموارد</li>
+                    <li>إيقاف تلقائي للحسابات المخالفة</li>
+                </ul>
+            </div>
+
+            <!-- المراقبة والصيانة -->
+            <h2>📊 المراقبة والصيانة المستمرة</h2>
+
+            <h3>1. مراقبة عدد العمليات</h3>
+
+            <h4>عبر WHM</h4>
+            <ul>
+                <li>اذهب إلى: <strong>WHM » Server Status » Service Status</strong></li>
+                <li>راقب عدد العمليات الحالية</li>
+                <li>استخدم <strong>Process Manager</strong> لعرض العمليات حسب المستخدم</li>
+            </ul>
+
+            <h4>عبر سطر الأوامر</h4>
+            <pre><code># عرض عدد العمليات لكل مستخدم
+ps aux | awk '{print $1}' | sort | uniq -c | sort -rn | head -20
+
+# مراقبة مباشرة
+watch -n 2 'ps aux --no-headers | wc -l'
+
+# عرض المستخدمين الأكثر استهلاكاً
+top -b -n 1 | head -20</code></pre>
+
+            <h3>2. إنشاء سكريبت مراقبة تلقائي</h3>
+            <pre><code>#!/bin/bash
+# /root/scripts/monitor_processes.sh
+
+MAX_PROCS=900
+LOG_FILE="/var/log/forkbomb_monitor.log"
+
+for user in $(cut -d: -f1 /etc/passwd); do
+    count=$(ps -u $user --no-headers 2>/dev/null | wc -l)
+    if [ $count -gt $MAX_PROCS ]; then
+        echo "$(date): WARNING - User $user has $count processes!" >> $LOG_FILE
+
+        # إرسال تنبيه عبر WHM
+        /usr/local/cpanel/bin/whmapi1 send_notification \
+            subject="Fork Bomb Alert" \
+            body="User $user exceeded process limit: $count processes"
+
+        # اختياري: إيقاف العمليات
+        # pkill -9 -u $user
+    fi
+done</code></pre>
+
+            <p>اجعله قابلاً للتنفيذ وأضفه إلى cron:</p>
+            <pre><code>chmod +x /root/scripts/monitor_processes.sh
+
+# إضافة إلى crontab (كل 5 دقائق)
+*/5 * * * * /root/scripts/monitor_processes.sh</code></pre>
+
+            <h3>3. استخدام WHM API للمراقبة</h3>
+            <pre><code># الحصول على إحصائيات الحسابات
+whmapi1 get_account_summary
+
+# عرض استخدام الموارد
+whmapi1 showbw
+
+# فحص العمليات
+whmapi1 get_running_processes</code></pre>
+
+            <!-- الاستجابة للحوادث -->
+            <h2>🚨 كيفية التعامل مع Fork Bomb إذا حدثت</h2>
+
+            <div class="warning-box">
+                <h3>السيناريو 1: السيرفر لا يزال يستجيب (ببطء)</h3>
+
+                <h4>عبر WHM</h4>
+                <ol>
+                    <li>سجل دخول إلى WHM (قد يأخذ وقتاً طويلاً)</li>
+                    <li>اذهب إلى: <strong>Home » Server Status » Process Manager</strong></li>
+                    <li>ابحث عن المستخدم المسبب للمشكلة</li>
+                    <li>اضغط <strong>Terminate</strong> على عملياته</li>
+                    <li>أو استخدم <strong>Suspend Account</strong> لإيقاف الحساب مؤقتاً</li>
+                </ol>
+
+                <h4>عبر SSH</h4>
+                <pre><code># تسجيل الدخول
+ssh root@your-server.com
+
+# تحديد المستخدم المشبوه
+ps aux | awk '{print $1}' | sort | uniq -c | sort -rn | head -5
+
+# قتل جميع عملياته
+pkill -9 -u username
+
+# تعطيل الحساب مؤقتاً
+/scripts/suspendacct username
+
+# التحقق من النتيجة
+ps aux | grep username</code></pre>
+            </div>
+
+            <div class="warning-box">
+                <h3>السيناريو 2: السيرفر متوقف تماماً</h3>
+
+                <ol>
+                    <li><strong>الوصول عبر Console:</strong> استخدم KVM أو IPMI من مزود الاستضافة</li>
+                    <li><strong>الدخول إلى Single User Mode:</strong>
+                        <ul>
+                            <li>أعد تشغيل السيرفر</li>
+                            <li>اضغط <code>e</code> في قائمة GRUB</li>
+                            <li>أضف <code>single</code> أو <code>1</code> في نهاية سطر kernel</li>
+                            <li>اضغط <code>Ctrl+x</code> للإقلاع</li>
+                        </ul>
+                    </li>
+                    <li><strong>تفعيل الحماية قبل إعادة التشغيل الطبيعي</strong></li>
+                    <li><strong>مراجعة السجلات:</strong>
+                        <pre><code>tail -100 /var/log/messages
+journalctl -xe
+dmesg | grep -i fork</code></pre>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="warning-box">
+                <h3>السيناريو 3: الهجوم المتكرر</h3>
+
+                <p>إذا كان حساب معين يسبب المشكلة بشكل متكرر:</p>
+
+                <h4>1. تحقق من السبب</h4>
+                <pre><code># فحص الـ cron jobs
+crontab -u username -l
+
+# فحص السكريبتات النشطة
+lsof -u username
+
+# مراجعة سجلات الحساب
+grep username /var/log/messages</code></pre>
+
+                <h4>2. تطبيق قيود أكثر صرامة</h4>
+                <p>في WHM:</p>
+                <ul>
+                    <li><strong>Account Functions » Limit Bandwidth</strong></li>
+                    <li><strong>Account Functions » Resource Usage</strong></li>
+                    <li>خفض حد العمليات لهذا الحساب فقط</li>
+                </ul>
+
+                <h4>3. التواصل مع صاحب الحساب</h4>
+                <ul>
+                    <li>أخبره بالمشكلة</li>
+                    <li>اطلب منه مراجعة السكريبتات</li>
+                    <li>وفّر له معلومات عن السبب</li>
+                    <li>ضع حداً زمنياً لحل المشكلة</li>
+                </ul>
+
+                <h4>4. الإجراءات النهائية</h4>
+                <ul>
+                    <li>تعطيل الحساب إذا استمرت المشكلة</li>
+                    <li>طلب دفع غرامة إذا تسبب في ضرر للآخرين</li>
+                    <li>إنهاء الخدمة في حالات الإساءة المتعمدة</li>
+                </ul>
+            </div>
+
+            <!-- الإعدادات المتقدمة -->
+            <h2>🔧 إعدادات متقدمة لـ Alma Linux</h2>
+
+            <h3>1. تحسين إعدادات Kernel</h3>
+            <pre><code>nano /etc/sysctl.conf</code></pre>
+
+            <p>أضف الإعدادات التالية:</p>
+            <pre><code># الحد الأقصى لـ Process IDs
+kernel.pid_max = 32768
+
+# الحد الأقصى للـ threads
+kernel.threads-max = 50000
+
+# تحسين إدارة الذاكرة
+vm.overcommit_memory = 2
+vm.overcommit_ratio = 80
+
+# منع استهلاك swap بشكل مفرط
+vm.swappiness = 10
+
+# تحسين استجابة النظام
+kernel.sched_migration_cost_ns = 5000000</code></pre>
+
+            <p>طبق التغييرات:</p>
+            <pre><code>sysctl -p</code></pre>
+
+            <h3>2. تفعيل OOM Killer بشكل أذكى</h3>
+            <p>OOM (Out Of Memory) Killer يقتل العمليات عند نفاد الذاكرة:</p>
+            <pre><code># جعل Apache وMySQL أقل عرضة للقتل
+pgrep -f httpd | while read pid; do
+    echo -1000 > /proc/$pid/oom_score_adj
+done
+
+pgrep -f mysqld | while read pid; do
+    echo -1000 > /proc/$pid/oom_score_adj
+done</code></pre>
+
+            <h3>3. استخدام systemd Resource Control</h3>
+            <pre><code>mkdir -p /etc/systemd/system/user@.service.d/
+nano /etc/systemd/system/user@.service.d/limits.conf</code></pre>
+
+            <p>أضف:</p>
+            <pre><code>[Service]
+# تحديد عدد العمليات
+TasksMax=200
+
+# تحديد استخدام الذاكرة
+MemoryMax=2G
+MemoryHigh=1.5G
+
+# تحديد استخدام CPU
+CPUQuota=50%</code></pre>
+
+            <p>أعد تحميل systemd:</p>
+            <pre><code>systemctl daemon-reload</code></pre>
+
+            <!-- أفضل الممارسات -->
+            <h2>✨ أفضل الممارسات لسيرفرات الإنتاج</h2>
+
+            <div class="benefit-box">
+                <h3>1. الإعدادات الموصى بها حسب نوع السيرفر</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>نوع السيرفر</th>
+                            <th>عدد الحسابات</th>
+                            <th>حد العمليات/حساب</th>
+                            <th>إعدادات إضافية</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Shared Basic</td>
+                            <td>20-50</td>
+                            <td>100-150</td>
+                            <td>تفعيل CloudLinux موصى به</td>
+                        </tr>
+                        <tr>
+                            <td>Shared Standard</td>
+                            <td>50-100</td>
+                            <td>150-250</td>
+                            <td>مراقبة كل 5 دقائق</td>
+                        </tr>
+                        <tr>
+                            <td>Shared Premium</td>
+                            <td>100-200</td>
+                            <td>250-400</td>
+                            <td>CloudLinux + monitoring</td>
+                        </tr>
+                        <tr>
+                            <td>Reseller</td>
+                            <td>متغير</td>
+                            <td>300-500</td>
+                            <td>قيود على مستوى الـ reseller</td>
+                        </tr>
+                        <tr>
+                            <td>VPS/Dedicated</td>
+                            <td>5-20</td>
+                            <td>500-1000</td>
+                            <td>مرونة أكبر حسب الموارد</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="benefit-box">
+                <h3>2. جدول الصيانة الدوري</h3>
+
+                <h4>يومياً</h4>
+                <ul>
+                    <li>مراجعة سريعة لاستهلاك الموارد</li>
+                    <li>فحص سجلات التنبيهات</li>
+                    <li>التأكد من عمل سكريبتات المراقبة</li>
+                </ul>
+
+                <h4>أسبوعياً</h4>
+                <ul>
+                    <li>مراجعة تفصيلية لاستخدام العمليات</li>
+                    <li>تحليل الحسابات الأكثر استهلاكاً</li>
+                    <li>تحديث قواعد الحماية إن لزم</li>
+                    <li>مراجعة سجلات WHM</li>
+                </ul>
+
+                <h4>شهرياً</h4>
+                <ul>
+                    <li>تقرير شامل عن أداء السيرفر</li>
+                    <li>مراجعة وتحديث حدود العمليات</li>
+                    <li>اختبار خطة الاستجابة للحوادث</li>
+                    <li>تحديثات النظام والأمان</li>
+                </ul>
+            </div>
+
+            <div class="benefit-box">
+                <h3>3. التوثيق والتدريب</h3>
+
+                <h4>وثق كل شيء</h4>
+                <ul>
+                    <li>الإعدادات الحالية ومبرراتها</li>
+                    <li>خطوات الاستجابة للحوادث</li>
+                    <li>معلومات الاتصال في الطوارئ</li>
+                    <li>تاريخ التغييرات والأسباب</li>
+                </ul>
+
+                <h4>درب الفريق</h4>
+                <ul>
+                    <li>كيفية اكتشاف Fork Bomb</li>
+                    <li>خطوات الاستجابة السريعة</li>
+                    <li>استخدام أدوات المراقبة</li>
+                    <li>التواصل مع العملاء</li>
+                </ul>
+            </div>
+
+            <!-- الخلاصة والموارد -->
+            <h2>📝 الخلاصة</h2>
+
+            <div class="alert alert-success">
+                <h3>النقاط الرئيسية</h3>
+                <ul>
+                    <li><strong>WHM يجعل الحماية سهلة:</strong> واجهة بسيطة، تطبيق مركزي، وفعالية عالية</li>
+                    <li><strong>Alma Linux مستقر وموثوق:</strong> خيار ممتاز لسيرفرات الإنتاج</li>
+                    <li><strong>الحماية ضرورية للسيرفرات المشتركة:</strong> حساب واحد يمكن أن يوقف الجميع</li>
+                    <li><strong>CloudLinux يضيف طبقة حماية إضافية:</strong> استثمار يستحق العناء</li>
+                    <li><strong>المراقبة المستمرة أساسية:</strong> الاكتشاف المبكر يمنع الكوارث</li>
+                    <li><strong>التوثيق والتدريب مهمان:</strong> الاستعداد يوفر الوقت والمال</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-warning">
+                <h3>⚠️ تذكر دائماً</h3>
+                <ul>
+                    <li>لا تضع قيوداً صارمة جداً تؤثر على الاستخدام العادي</li>
+                    <li>راقب أداء السيرفر بعد تطبيق أي تغييرات</li>
+                    <li>احتفظ بنسخة احتياطية من الإعدادات قبل التعديل</li>
+                    <li>كن مستعداً دائماً للاستجابة السريعة</li>
+                    <li>تواصل مع العملاء بشفافية عن سياسات الاستخدام</li>
+                </ul>
+            </div>
+
+            <h2>🔗 مصادر ووثائق إضافية</h2>
+
+            <div class="benefit-box">
+                <h3>وثائق WHM/cPanel</h3>
+                <ul>
+                    <li><a href="https://docs.cpanel.net/" target="_blank">WHM Official Documentation</a></li>
+                    <li><a href="https://docs.cpanel.net/knowledge-base/security/" target="_blank">cPanel Security Center</a></li>
+                    <li><a href="https://docs.cpanel.net/whm/security-center/shell-fork-bomb-protection/" target="_blank">Shell Fork Bomb Protection Guide</a></li>
+                </ul>
+
+                <h3>وثائق Alma Linux</h3>
+                <ul>
+                    <li><a href="https://wiki.almalinux.org/" target="_blank">Alma Linux Wiki</a></li>
+                    <li><a href="https://almalinux.org/blog/" target="_blank">Alma Linux Blog</a></li>
+                    <li><a href="https://repo.almalinux.org/" target="_blank">Alma Linux Repositories</a></li>
+                </ul>
+
+                <h3>وثائق CloudLinux</h3>
+                <ul>
+                    <li><a href="https://docs.cloudlinux.com/" target="_blank">CloudLinux Documentation</a></li>
+                    <li><a href="https://docs.cloudlinux.com/lve_manager/" target="_blank">LVE Manager Guide</a></li>
+                    <li><a href="https://www.cloudlinux.com/getting-started-with-cloudlinux-os" target="_blank">Getting Started Guide</a></li>
+                </ul>
+
+                <h3>أدوات مفيدة</h3>
+                <ul>
+                    <li><strong>htop:</strong> مراقبة العمليات التفاعلية</li>
+                    <li><strong>glances:</strong> مراقبة شاملة للنظام</li>
+                    <li><strong>netdata:</strong> لوحة تحكم مراقبة في الوقت الفعلي</li>
+                    <li><strong>Prometheus + Grafana:</strong> مراقبة متقدمة وتنبيهات</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-info">
+                <h3>💡 نصيحة أخيرة</h3>
+                <p>حماية Fork Bomb ليست رفاهية، بل ضرورة لأي سيرفر إنتاج. الدقائق القليلة التي تستثمرها في الإعداد الصحيح يمكن أن توفر عليك ساعات من التعطل والخسائر المالية. ابدأ الآن، ولا تنتظر حتى تحدث المشكلة!</p>
+            </div>
+
+            <footer>
+                <p>
+                    <strong>تم الإعداد بواسطة:</strong> دليل شامل لحماية السيرفرات<br>
+                    <strong>آخر تحديث:</strong> يناير 2026<br>
+                    <strong>الإصدار:</strong> 2.0 (Alma Linux + WHM Edition)
+                </p>
+            </footer>
+        </div>
+    </template>
+
+    <template id="template-en">
+        <div class="content-wrapper">
+            <h2>⚡ What Is a Fork Bomb?</h2>
+            <p>A <strong>Fork Bomb</strong> is a deceptively simple yet extremely dangerous attack against operating systems, especially shared hosting servers. The program keeps cloning itself until every system resource is exhausted.</p>
+            <div class="alert alert-danger">
+                <strong>⚠️ Critical Warning:</strong> A fork bomb can freeze the entire server within seconds, disrupting every hosted site and service!
+            </div>
+            <h3>Classic Linux Example</h3>
+            <pre><code>:(){ :|:&amp; };:</code></pre>
+            <p><strong>How does it work?</strong></p>
+            <ul>
+                <li>Defines a function named <code>:</code></li>
+                <li>The function calls itself twice at the same time</li>
+                <li>Every spawned process creates two more processes</li>
+                <li>Result: exponential growth in process count (2, 4, 8, 16...)</li>
+            </ul>
+
+            <h2>🔥 Why Fork Bombs Devastate Hosting Servers</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Impact Area</th>
+                        <th>Description</th>
+                        <th>Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Memory (RAM)</td>
+                        <td>Every process consumes memory pages</td>
+                        <td>Complete memory exhaustion</td>
+                    </tr>
+                    <tr>
+                        <td>CPU Time</td>
+                        <td>Thousands of processes compete for CPU slices</td>
+                        <td>Severe slowdown or full lock-up</td>
+                    </tr>
+                    <tr>
+                        <td>Background Services</td>
+                        <td>No resources remain for normal daemons</td>
+                        <td>Websites and databases stop responding</td>
+                    </tr>
+                    <tr>
+                        <td>Containment Difficulty</td>
+                        <td>New processes spawn faster than you can kill them</td>
+                        <td>Forced reboot often becomes the only option</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-warning">
+                <strong>📊 Reality Check:</strong> A fork bomb can spawn over a million processes in under ten seconds on an unprotected server!
+            </div>
+
+            <div class="whm-section">
+                <h2>🎯 Why Enable Protection from WHM?</h2>
+                <div class="benefit-box">
+                    <h3>✅ Key Advantages of WHM-Level Protection</h3>
+
+                    <h4>1. Coverage for Every Account</h4>
+                    <p>When you switch protection on from WHM it automatically applies to:</p>
+                    <ul>
+                        <li><strong>All cPanel accounts:</strong> every customer inherits the limits</li>
+                        <li><strong>Newly created accounts:</strong> safeguards are active from day one</li>
+                        <li><strong>SSH users:</strong> shell access remains controlled</li>
+                        <li><strong>Cron jobs:</strong> scheduled tasks also respect the ceilings</li>
+                    </ul>
+
+                    <h4>2. Centralised Administration</h4>
+                    <p>No more editing system files user by user:</p>
+                    <ul>
+                        <li>Friendly graphical interface</li>
+                        <li>Apply changes with a single click</li>
+                        <li>Rollback quickly if you need to</li>
+                        <li>Audit and adjust limits from one location</li>
+                    </ul>
+
+                    <h4>3. Perfect Match with Alma Linux</h4>
+                    <p>Alma Linux (the CentOS successor) works seamlessly with WHM:</p>
+                    <ul>
+                        <li>Long-term stability and support</li>
+                        <li>Full compatibility with CloudLinux LVE</li>
+                        <li>First-class cgroups and systemd support</li>
+                        <li>Regular security hardening updates</li>
+                    </ul>
+
+                    <h4>4. Prevent Total Server Collapse</h4>
+                    <p>On shared machines a single account can impact every tenant:</p>
+                    <ul>
+                        <li><strong>Without protection:</strong> one fork bomb equals full outage</li>
+                        <li><strong>With protection:</strong> only the offending account is throttled</li>
+                        <li>Preserve service-level agreements (SLAs)</li>
+                        <li>Reduce customer complaints and churn</li>
+                    </ul>
+
+                    <h4>5. Mitigate Deliberate Abuse</h4>
+                    <ul>
+                        <li>Block fork bombs as a DoS vector</li>
+                        <li>Contain malicious scripts</li>
+                        <li>Lower the probability of privilege escalation</li>
+                        <li>Trace suspicious activity faster</li>
+                    </ul>
+
+                    <h4>6. Optional CloudLinux Synergy</h4>
+                    <p>If CloudLinux is enabled alongside WHM:</p>
+                    <ul>
+                        <li>LVE delivers hardened per-account isolation</li>
+                        <li>Noisy neighbours cannot affect others</li>
+                        <li>Fine-grained CPU, RAM, IO and process controls</li>
+                        <li>Detailed usage analytics and alerting</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>💡 Pro Tip:</strong> Enabling shell fork bomb protection has no negative effect on legitimate workloads—instead it dramatically improves stability and security.
+                </div>
+            </div>
+
+            <h2>⚙️ Enabling Fork Bomb Protection in WHM for Alma Linux</h2>
+            <div class="step-box">
+                <h3>Method 1: Shell Limits from the WHM Interface</h3>
+
+                <h4>Step 1: Sign in to WHM</h4>
+                <pre><code>https://your-server-ip:2087
+or
+https://your-domain.com:2087</code></pre>
+                <p>Authenticate with the root account.</p>
+
+                <h4>Step 2: Locate the Shell Limits Module</h4>
+                <ul>
+                    <li>Use the search bar at the top of WHM and type <code>Shell Limits</code></li>
+                    <li>Or browse to <strong>Home » Security Center » Manage Shell Fork Bomb Protection</strong></li>
+                </ul>
+
+                <h4>Step 3: Enable the Guardrails</h4>
+                <p>The interface provides two key toggles:</p>
+                <ul>
+                    <li><strong>Enable Shell Fork Bomb Protection:</strong> turn the switch on</li>
+                    <li><strong>Maximum Number of Processes:</strong> set the per-user process cap</li>
+                </ul>
+
+                <div class="alert alert-success">
+                    <strong>✅ Suggested thresholds:</strong>
+                    <ul>
+                        <li><strong>Smaller servers (up to 50 sites):</strong> 100–200 processes per user</li>
+                        <li><strong>Mid-size servers (50–200 sites):</strong> 200–400 processes</li>
+                        <li><strong>Large fleets (200+ sites):</strong> 400–800 processes</li>
+                    </ul>
+                </div>
+
+                <h4>Step 4: Persist the Configuration</h4>
+                <p>Click <strong>Save</strong> or <strong>Update</strong>.</p>
+
+                <h4>Step 5: Validate the Limit</h4>
+                <p>Open an SSH session into any cPanel account and run:</p>
+                <pre><code>ssh username@your-server.com
+ulimit -u</code></pre>
+                <p>The reported number must match the configured ceiling.</p>
+            </div>
+
+            <div class="step-box">
+                <h3>Method 2: Manual Hardening (advanced)</h3>
+
+                <h4>1. Edit limits.conf</h4>
+                <pre><code>nano /etc/security/limits.conf</code></pre>
+                <p>Append these lines:</p>
+                <pre><code># Global safeguard for all users
+* hard nproc 1000
+* soft nproc 800
+
+# Specific controls for cPanel users
+@users hard nproc 500
+@users soft nproc 400
+
+# Allow root to keep higher headroom
+root hard nproc 5000
+root soft nproc 4000</code></pre>
+
+                <h4>2. Harden PAM configuration</h4>
+                <pre><code>nano /etc/pam.d/sshd</code></pre>
+                <p>Ensure the following line exists:</p>
+                <pre><code>session required pam_limits.so</code></pre>
+
+                <h4>3. Apply systemd service caps</h4>
+                <pre><code>mkdir -p /etc/systemd/system/httpd.service.d/
+nano /etc/systemd/system/httpd.service.d/limits.conf</code></pre>
+                <p>Add:</p>
+                <pre><code>[Service]
+LimitNPROC=2000</code></pre>
+                <p>Reload systemd and restart the service:</p>
+                <pre><code>systemctl daemon-reload
+systemctl restart httpd</code></pre>
+            </div>
+
+            <h2>☁️ CloudLinux Integration (highly recommended)</h2>
+            <div class="alert alert-info">
+                <p>CloudLinux OS brings LVE-based isolation that significantly elevates fork bomb resistance.</p>
+            </div>
+
+            <h3>Enabling Fork Bomb Protection in CloudLinux</h3>
+            <h4>Through WHM</h4>
+            <ol>
+                <li>Open <strong>WHM » LVE Manager</strong></li>
+                <li>Select <strong>Options</strong></li>
+                <li>Choose <strong>NPROC</strong> (number of processes)</li>
+                <li>Assign a suitable value (e.g., 100)</li>
+                <li>Save the change</li>
+            </ol>
+
+            <h4>Via the command line</h4>
+            <pre><code># Define the default process quota
+lvectl set default --nproc=100
+
+# Apply globally
+lvectl apply all
+
+# Inspect current settings
+lvectl list</code></pre>
+
+            <div class="benefit-box">
+                <h4>CloudLinux LVE Highlights</h4>
+                <ul>
+                    <li>True tenant isolation—no account can starve another</li>
+                    <li>Precise CPU, RAM, IO, and process throttling</li>
+                    <li>Real-time usage dashboards</li>
+                    <li>In-depth resource consumption reports</li>
+                    <li>Automatic suspension of abusive accounts</li>
+                </ul>
+            </div>
+
+            <h2>📊 Ongoing Monitoring and Maintenance</h2>
+            <h3>1. Watch the process counts</h3>
+
+            <h4>Inside WHM</h4>
+            <ul>
+                <li>Navigate to <strong>WHM » Server Status » Service Status</strong></li>
+                <li>Track the current number of running processes</li>
+                <li>Use <strong>Process Manager</strong> to spot heavy users</li>
+            </ul>
+
+            <h4>On the command line</h4>
+            <pre><code># Show process counts per user
+ps aux | awk '{print $1}' | sort | uniq -c | sort -rn | head -20
+
+# Live monitoring
+watch -n 2 'ps aux --no-headers | wc -l'
+
+# Top consumers snapshot
+top -b -n 1 | head -20</code></pre>
+
+            <h3>2. Automate monitoring with a script</h3>
+            <pre><code>#!/bin/bash
+# /root/scripts/monitor_processes.sh
+
+MAX_PROCS=900
+LOG_FILE="/var/log/forkbomb_monitor.log"
+
+for user in $(cut -d: -f1 /etc/passwd); do
+    count=$(ps -u $user --no-headers 2>/dev/null | wc -l)
+    if [ $count -gt $MAX_PROCS ]; then
+        echo "$(date): WARNING - User $user has $count processes!" >> $LOG_FILE
+
+        # Send an alert via WHM
+        /usr/local/cpanel/bin/whmapi1 send_notification \
+            subject="Fork Bomb Alert" \
+            body="User $user exceeded process limit: $count processes"
+
+        # Optional: terminate the processes
+        # pkill -9 -u $user
+    fi
+done</code></pre>
+            <p>Make it executable and schedule it:</p>
+            <pre><code>chmod +x /root/scripts/monitor_processes.sh
+
+# Add to crontab (every 5 minutes)
+*/5 * * * * /root/scripts/monitor_processes.sh</code></pre>
+
+            <h3>3. Use the WHM API for observability</h3>
+            <pre><code># Account statistics snapshot
+whmapi1 get_account_summary
+
+# Bandwidth and resource usage
+whmapi1 showbw
+
+# Running processes overview
+whmapi1 get_running_processes</code></pre>
+
+            <h2>🚨 Incident Response Playbooks</h2>
+            <div class="warning-box">
+                <h3>Scenario 1: The server is sluggish but reachable</h3>
+
+                <h4>Inside WHM</h4>
+                <ol>
+                    <li>Log in to WHM (be patient—it may be slow)</li>
+                    <li>Open <strong>Home » Server Status » Process Manager</strong></li>
+                    <li>Identify the offending account</li>
+                    <li>Terminate its processes</li>
+                    <li>Optionally suspend the account temporarily</li>
+                </ol>
+
+                <h4>Over SSH</h4>
+                <pre><code># Connect to the server
+ssh root@your-server.com
+
+# Find the noisy user
+ps aux | awk '{print $1}' | sort | uniq -c | sort -rn | head -5
+
+# Kill every process owned by that user
+pkill -9 -u username
+
+# Suspend the cPanel account temporarily
+/scripts/suspendacct username
+
+# Confirm the clean-up
+ps aux | grep username</code></pre>
+            </div>
+
+            <div class="warning-box">
+                <h3>Scenario 2: The server is completely frozen</h3>
+                <ol>
+                    <li><strong>Console access:</strong> use your provider's KVM or IPMI console</li>
+                    <li><strong>Boot into single-user mode:</strong>
+                        <ul>
+                            <li>Reboot the server</li>
+                            <li>Press <code>e</code> on the GRUB menu</li>
+                            <li>Append <code>single</code> or <code>1</code> to the kernel line</li>
+                            <li>Press <code>Ctrl+x</code> to continue booting</li>
+                        </ul>
+                    </li>
+                    <li><strong>Enable protection before returning to normal mode</strong></li>
+                    <li><strong>Review the logs:</strong>
+                        <pre><code>tail -100 /var/log/messages
+journalctl -xe
+dmesg | grep -i fork</code></pre>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="warning-box">
+                <h3>Scenario 3: Repeated attacks from the same account</h3>
+                <p>If a single customer keeps triggering the limits:</p>
+
+                <h4>1. Investigate the root cause</h4>
+                <pre><code># Inspect cron jobs
+crontab -u username -l
+
+# Review running scripts
+lsof -u username
+
+# Check system logs for clues
+grep username /var/log/messages</code></pre>
+
+                <h4>2. Tighten individual limits</h4>
+                <p>Within WHM:</p>
+                <ul>
+                    <li><strong>Account Functions » Limit Bandwidth</strong></li>
+                    <li><strong>Account Functions » Resource Usage</strong></li>
+                    <li>Lower the process ceiling for that account only</li>
+                </ul>
+
+                <h4>3. Communicate with the customer</h4>
+                <ul>
+                    <li>Describe the issue clearly</li>
+                    <li>Ask for a review of custom scripts</li>
+                    <li>Provide diagnostic findings</li>
+                    <li>Set a remediation deadline</li>
+                </ul>
+
+                <h4>4. Final escalation options</h4>
+                <ul>
+                    <li>Suspend the account if abuse continues</li>
+                    <li>Charge an incident-handling fee when appropriate</li>
+                    <li>Terminate the service in cases of deliberate attacks</li>
+                </ul>
+            </div>
+
+            <h2>🔧 Advanced Alma Linux Tweaks</h2>
+            <h3>1. Tune kernel parameters</h3>
+            <pre><code>nano /etc/sysctl.conf</code></pre>
+            <p>Add the following:</p>
+            <pre><code># Cap the number of process IDs
+kernel.pid_max = 32768
+
+# Cap the number of threads
+kernel.threads-max = 50000
+
+# Memory management tweaks
+vm.overcommit_memory = 2
+vm.overcommit_ratio = 80
+
+# Avoid aggressive swap usage
+vm.swappiness = 10
+
+# Improve scheduler responsiveness
+kernel.sched_migration_cost_ns = 5000000</code></pre>
+            <p>Apply the changes:</p>
+            <pre><code>sysctl -p</code></pre>
+
+            <h3>2. Smarter OOM killer configuration</h3>
+            <p>The Out Of Memory killer decides which processes to terminate when RAM runs out:</p>
+            <pre><code># Make Apache and MySQL less likely to be killed
+pgrep -f httpd | while read pid; do
+    echo -1000 > /proc/$pid/oom_score_adj
+done
+
+pgrep -f mysqld | while read pid; do
+    echo -1000 > /proc/$pid/oom_score_adj
+done</code></pre>
+
+            <h3>3. Leverage systemd resource control</h3>
+            <pre><code>mkdir -p /etc/systemd/system/user@.service.d/
+nano /etc/systemd/system/user@.service.d/limits.conf</code></pre>
+            <p>Add:</p>
+            <pre><code>[Service]
+# Process limit per user session
+TasksMax=200
+
+# Memory guardrails
+MemoryMax=2G
+MemoryHigh=1.5G
+
+# CPU quota
+CPUQuota=50%</code></pre>
+            <p>Reload the daemon:</p>
+            <pre><code>systemctl daemon-reload</code></pre>
+
+            <h2>✨ Production Best Practices</h2>
+            <div class="benefit-box">
+                <h3>1. Recommended baselines by server type</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Server tier</th>
+                            <th>Accounts</th>
+                            <th>Process cap per account</th>
+                            <th>Additional notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Shared Basic</td>
+                            <td>20–50</td>
+                            <td>100–150</td>
+                            <td>CloudLinux strongly advised</td>
+                        </tr>
+                        <tr>
+                            <td>Shared Standard</td>
+                            <td>50–100</td>
+                            <td>150–250</td>
+                            <td>Monitor every 5 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>Shared Premium</td>
+                            <td>100–200</td>
+                            <td>250–400</td>
+                            <td>Pair CloudLinux with monitoring</td>
+                        </tr>
+                        <tr>
+                            <td>Reseller</td>
+                            <td>Variable</td>
+                            <td>300–500</td>
+                            <td>Apply per-reseller controls</td>
+                        </tr>
+                        <tr>
+                            <td>VPS/Dedicated</td>
+                            <td>5–20</td>
+                            <td>500–1000</td>
+                            <td>Adjust based on available resources</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="benefit-box">
+                <h3>2. Preventive maintenance cadence</h3>
+                <h4>Daily</h4>
+                <ul>
+                    <li>Quick scan of resource consumption</li>
+                    <li>Review alert logs</li>
+                    <li>Verify monitoring scripts are running</li>
+                </ul>
+
+                <h4>Weekly</h4>
+                <ul>
+                    <li>Deep-dive into process usage trends</li>
+                    <li>Analyse top-spending accounts</li>
+                    <li>Update protection policies if required</li>
+                    <li>Audit WHM logs</li>
+                </ul>
+
+                <h4>Monthly</h4>
+                <ul>
+                    <li>Compile a full service health report</li>
+                    <li>Review and adjust process quotas</li>
+                    <li>Test the incident response plan</li>
+                    <li>Apply security and OS updates</li>
+                </ul>
+            </div>
+
+            <div class="benefit-box">
+                <h3>3. Documentation and training</h3>
+                <h4>Document everything</h4>
+                <ul>
+                    <li>Current settings and the reasoning behind them</li>
+                    <li>Incident response procedures</li>
+                    <li>Emergency contact information</li>
+                    <li>Change history with timestamps</li>
+                </ul>
+
+                <h4>Coach the team</h4>
+                <ul>
+                    <li>Recognising fork bomb symptoms</li>
+                    <li>Rapid containment steps</li>
+                    <li>Using monitoring dashboards effectively</li>
+                    <li>Communicating transparently with customers</li>
+                </ul>
+            </div>
+
+            <h2>📝 Key Takeaways</h2>
+            <div class="alert alert-success">
+                <h3>Essential messages</h3>
+                <ul>
+                    <li><strong>WHM keeps defence simple:</strong> a central, efficient control plane</li>
+                    <li><strong>Alma Linux is production-ready:</strong> reliable and well supported</li>
+                    <li><strong>Shared hosting needs limits:</strong> one account can otherwise sink the ship</li>
+                    <li><strong>CloudLinux adds another shield:</strong> well worth the investment</li>
+                    <li><strong>Continuous monitoring matters:</strong> early detection prevents outages</li>
+                    <li><strong>Documentation and training count:</strong> preparedness saves hours and revenue</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-warning">
+                <h3>⚠️ Always remember</h3>
+                <ul>
+                    <li>Avoid limits that are so strict they harm legitimate workloads</li>
+                    <li>Track performance after every change</li>
+                    <li>Back up configuration files before editing them</li>
+                    <li>Stay ready to respond quickly</li>
+                    <li>Communicate your acceptable use policy clearly</li>
+                </ul>
+            </div>
+
+            <h2>🔗 Additional References and Documentation</h2>
+            <div class="benefit-box">
+                <h3>WHM/cPanel Documentation</h3>
+                <ul>
+                    <li><a href="https://docs.cpanel.net/" target="_blank" rel="noopener">WHM Official Documentation</a></li>
+                    <li><a href="https://docs.cpanel.net/knowledge-base/security/" target="_blank" rel="noopener">cPanel Security Center</a></li>
+                    <li><a href="https://docs.cpanel.net/whm/security-center/shell-fork-bomb-protection/" target="_blank" rel="noopener">Shell Fork Bomb Protection Guide</a></li>
+                </ul>
+
+                <h3>Alma Linux Resources</h3>
+                <ul>
+                    <li><a href="https://wiki.almalinux.org/" target="_blank" rel="noopener">Alma Linux Wiki</a></li>
+                    <li><a href="https://almalinux.org/blog/" target="_blank" rel="noopener">Alma Linux Blog</a></li>
+                    <li><a href="https://repo.almalinux.org/" target="_blank" rel="noopener">Alma Linux Repositories</a></li>
+                </ul>
+
+                <h3>CloudLinux Documentation</h3>
+                <ul>
+                    <li><a href="https://docs.cloudlinux.com/" target="_blank" rel="noopener">CloudLinux Documentation</a></li>
+                    <li><a href="https://docs.cloudlinux.com/lve_manager/" target="_blank" rel="noopener">LVE Manager Guide</a></li>
+                    <li><a href="https://www.cloudlinux.com/getting-started-with-cloudlinux-os" target="_blank" rel="noopener">Getting Started Guide</a></li>
+                </ul>
+
+                <h3>Useful tooling</h3>
+                <ul>
+                    <li><strong>htop:</strong> interactive process monitoring</li>
+                    <li><strong>glances:</strong> holistic system metrics</li>
+                    <li><strong>netdata:</strong> real-time dashboards</li>
+                    <li><strong>Prometheus + Grafana:</strong> advanced metrics and alerting</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-info">
+                <h3>💡 Final advice</h3>
+                <p>Fork bomb protection is not optional—it's essential for any production server. A few minutes of proactive configuration can save hours of downtime and significant revenue. Start today, not after the next incident.</p>
+            </div>
+
+            <footer>
+                <p>
+                    <strong>Produced by:</strong> Comprehensive server hardening guide<br>
+                    <strong>Last updated:</strong> January 2026<br>
+                    <strong>Release:</strong> 2.0 (Alma Linux + WHM Edition)
+                </p>
+            </footer>
+        </div>
+    </template>
+
     <script>
-        document.addEventListener('contextmenu', function(event) {
-            event.preventDefault();
-        });
+        (function () {
+            const translations = {
+                ar: {
+                    lang: 'ar',
+                    dir: 'rtl',
+                    title: 'حماية Fork Bomb لسيرفرات Alma Linux مع WHM/cPanel',
+                    heroTitle: '🛡️ حماية Fork Bomb لسيرفرات Alma Linux',
+                    heroSubtitle: 'دليل شامل للحماية من خلال WHM/cPanel',
+                    buttonLabel: 'التبديل إلى اللغة الإنجليزية',
+                    buttonText: 'العربية',
+                    templateId: 'template-ar',
+                    ariaPressed: 'false'
+                },
+                en: {
+                    lang: 'en',
+                    dir: 'ltr',
+                    title: 'Fork Bomb Protection for Alma Linux Servers with WHM/cPanel',
+                    heroTitle: '🛡️ Fork Bomb Protection for Alma Linux Servers',
+                    heroSubtitle: 'Comprehensive hardening guide via WHM/cPanel',
+                    buttonLabel: 'Switch back to Arabic',
+                    buttonText: 'English',
+                    templateId: 'template-en',
+                    ariaPressed: 'true'
+                }
+            };
+
+            let currentLanguage = 'ar';
+
+            const root = document.documentElement;
+            const toggle = document.getElementById('languageToggle');
+            const heroTitle = document.getElementById('heroTitle');
+            const heroSubtitle = document.getElementById('heroSubtitle');
+            const content = document.getElementById('articleContent');
+
+            function renderContent(templateId) {
+                const template = document.getElementById(templateId);
+                if (!template) {
+                    return;
+                }
+                content.innerHTML = '';
+                content.appendChild(template.content.cloneNode(true));
+            }
+
+            function applyLanguage(language) {
+                const config = translations[language];
+                if (!config) {
+                    return;
+                }
+
+                root.lang = config.lang;
+                root.dir = config.dir;
+                document.body.setAttribute('data-language', language);
+                document.title = config.title;
+                heroTitle.textContent = config.heroTitle;
+                heroSubtitle.textContent = config.heroSubtitle;
+                toggle.setAttribute('aria-label', config.buttonLabel);
+                toggle.textContent = config.buttonText;
+                toggle.setAttribute('aria-pressed', config.ariaPressed);
+                renderContent(config.templateId);
+            }
+
+            toggle.addEventListener('click', () => {
+                currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+                applyLanguage(currentLanguage);
+            });
+
+            applyLanguage(currentLanguage);
+
+            document.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+            });
+        }());
     </script>
 </body>
 </html></body></html>
